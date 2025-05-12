@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eSign</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee; /* لون أزرق مشابه لتطبيق eSign */
+            --primary-dark: #3a56d4;
+            --secondary-color: #f8f9fa;
+            --accent-color: #4cc9f0;
+            --text-color: #2b2d42;
+            --light-text: #8d99ae;
+            --border-color: #e9ecef;
+            --success-color: #4ad66d;
+            --warning-color: #f8961e;
+            --danger-color: #ef233c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+        
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .card {
+            background-color: white;
+            border: none;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(67, 97, 238, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 24px;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.15);
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        
+        p {
+            font-size: 16px;
+            margin-bottom: 25px;
+            color: var(--light-text);
+            line-height: 1.7;
+            font-weight: 400;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 0;
+            width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn:hover::after {
+            left: 100%;
+        }
+        
+        .certificate-info {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 25px;
+            position: relative;
+            overflow: hidden;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .certificate-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--light-text);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .certificate-date {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+            justify-content: center;
+        }
+        
+        .feature {
+            background-color: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--light-text);
+            font-size: 14px;
+            margin-top: 30px;
+        }
+        
+        .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: var(--accent-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+                border-radius: 12px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .certificate-date {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="badge">
+                <i class="fas fa-certificate"></i>
+            </div>
+            <img src="https://iosvizor.net/wp-content/uploads/2024/02/esign.jpg" alt="تطبيق eSign" class="logo">
+            <h1>تطبيق eSign</h1>
+            <p>قم بتنزيل التطبيق الموقع على جهازك الآيفون عبر الضغط على زر التثبيت أدناه</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-check-circle"></i> توقيع آمن
+                </div>
+                <div class="feature">
+                    <i class="fas fa-bolt"></i> سريع وسهل
+                </div>
+                <div class="feature">
+                    <i class="fas fa-shield-alt"></i> موثوق
+                </div>
+            </div>
+            
+            <button class="btn" onclick="window.location.href='itms-services://?action=download-manifest&url=YOUR_MANIFEST_URL_HERE'">
+                <i class="fas fa-download"></i> تثبيت التطبيق
+            </button>
+            
+            <div class="certificate-info">
+                <div class="certificate-title">
+                    <i class="fas fa-clock"></i> تاريخ انتهاء الشهادة
+                </div>
+                <div class="certificate-date">
+                    <span id="expiry-date">18/05/2025</span>
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        جميع الحقوق محفوظة &copy; <span id="year"></span> Mostafa Thabit
+    </footer>
+
+    <script>
+        // تعيين السنة الحالية في الفوتر
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // هنا يمكنك تعيين تاريخ انتهاء الشهادة (YYYY-MM-DD)
+        const expiryDate = new Date('2025-05-18');
+        
+        // تنسيق التاريخ لعرضه
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = expiryDate.toLocaleDateString('ar-EG', options);
+        
+        // عرض التاريخ في الصفحة
+        document.getElementById('expiry-date').textContent = formattedDate;
+        
+        // تغيير لون المؤشر حسب المدة المتبقية
+        const daysRemaining = Math.ceil((expiryDate - new Date()) / (1000 * 60 * 60 * 24));
+        const certInfo = document.querySelector('.certificate-info');
+        
+        if (daysRemaining <= 5) {
+            certInfo.style.background = 'linear-gradient(135deg, #fff5f5 0%, #fed7d7 100%)';
+            certInfo.style.borderLeft = '4px solid var(--danger-color)';
+            certInfo.querySelector('.certificate-title').style.color = 'var(--danger-color)';
+            certInfo.querySelector('.certificate-date').style.color = 'var(--danger-color)';
+        } else if (daysRemaining <= 7) {
+            certInfo.style.background = 'linear-gradient(135deg, #fffaf0 0%, #feebc8 100%)';
+            certInfo.style.borderLeft = '4px solid var(--warning-color)';
+            certInfo.querySelector('.certificate-title').style.color = 'var(--warning-color)';
+            certInfo.querySelector('.certificate-date').style.color = 'var(--warning-color)';
+        }
+    </script>
+</body>
+</html>
